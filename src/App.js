@@ -8,6 +8,8 @@ class App extends Component {
             <div className="App">
                 <h1>Hi, I'm a React App.</h1>
                 <p> This is really working!</p>
+                <Person>
+                </Person>
             </div>
             //<h1>Another heading</h1> count do this, can only have one root element
         );
