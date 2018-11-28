@@ -25,20 +25,10 @@ class App extends Component {
         });
     }
 
-    switchNameHandler = (newName) => {
-        //console.log('Was clicked!');
-        //Don't do this : this.state.person[1].name = 'Nancy'
-
-        //use setState to update
-        //only change on affected state
-        this.setState({
-            persons: [
-                { name: newName , age: 28 },
-                { name: 'Manu', age: 29 },
-                { name: 'Stephaine', age: 27 }
-            ]
-        });
-
+    deletePersonHandler = (personIndex) => {
+        const persons = this.state.persons;
+        persons.splice(personIndex, 1); //remove one element from the array
+        this.setState({ persons: persons });
     }
 
     togglePersonHandle = () => {
@@ -64,21 +54,15 @@ class App extends Component {
         let persons = null;
 
         if (this.state.showPersons) {
-            persons = (<div>
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age} />
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, 'Nancy')}
-                    changed={this.nameChangeHandler}
-                >My Hoobies: Racing</Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age} />
-
-            </div>);
+            persons = (
+                <div>
+                    {this.state.persons.map((person, index) => {
+                        return <Person
+                            click={() => this.deletePersonHandler(index)}
+                            name={person.name}
+                            age={person.age} />
+                    })} 
+                </div>);
         }
 
         return (
